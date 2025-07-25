@@ -15,8 +15,9 @@ calcSum :: [Int] -> Int
 calcSum [] = 0
 calcSum (first:rest) = first + calcSum rest
 
+-- Rekursive Verarbeitung von Liste -> Tuppel
 buildTupple :: [String] ->  [(Char , [String])]
-buildTupple [] = 
+buildTupple [] = []
 buildTupple (first : rest) = [(head first ,[first])] ++ buildTupple rest
 
 
