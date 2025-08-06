@@ -7,6 +7,14 @@ import Text.Read (readMaybe)
 main :: IO()
 main = do
     print (safeDivide 2 0)
+    let password = "Hell"
+    print (checkPassword 4 password )
+
+-- prüft ob ein Wort eine gewisse Mindestlänge hat -> mit Guards
+checkPassword :: Int-> String -> Either String Bool
+checkPassword n word 
+    | length word > n = Right True
+    | otherwise = Left "Fehlerhafte Eingabe : Passwort nicht lang genug."
 
 -- Funktion um das Teilen durch 0 zu verhindern und eine Fehlermeldung auszugeben
 safeDivide :: Int -> Int -> Either String Int
