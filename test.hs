@@ -8,7 +8,13 @@ main =
     print (doubleEven 10)
     print (toLists players numbers)
     print (zip players numbers)
+    print ( guardstest 5)
 
+guardstest :: Int -> Int
+guardstest x 
+        | x > 0 = 1
+        | x < 0 = -1
+        | otherwise 0
 
 -- even x stellt hier die Bedingung da um in die neue Liste zu kommen
 onlyeven :: [Int] -> [Int]

@@ -10,9 +10,10 @@ main = do
     let divisors = divisor 12 
     print divisors
     let values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    let randomValues = [1,2,3,3,4,1,2,3,4,5,6]
     let only = onlyDivBy3 values
     print only    
-    let words = ["Hallo" , "mein" , "Name" , "ist" , "Bob" , "und" , "ich" , "hasse" , "Haskell" , "nicht" , "mehr" , "so" , "sehr"]
+    let words = ["Hallo" , "mein" , "Name" , "ist" , "Kevin" , "und" , "ich" , "hasse" , "Haskell" , "nicht" , "mehr" , "so" , "sehr"]
     let result = pairWithLength words
     print result
     let combo = groupBylength words
@@ -21,6 +22,8 @@ main = do
     print even
     let startH = startsWithH words
     print startH
+    print( takeWhileAdjanced (\x y -> x<=y) randomValues) -- oder -> takeWhileAdjanced (<=) randomValues (ETA-reduction)
+    print( takeWhileTriple (\x y z ->  x < y && y < z) randomValues)
     
 
 doubleIfEven :: Int -> [Int]
@@ -41,6 +44,7 @@ pairWithLength :: [String] -> [(String , Int)]
 pairWithLength list = [(x , y) | x <- list , let y = length x]
 
 groupBylength :: [String] -> [(Int , [String])]
+-- nub (map length list) -> gibt die Länge von allen Wörtern in der Liste aus , nub entfernt nur Duplikate
 groupBylength list = [(x , [w | w <- list ,length w == x]) | x <- nub (map length list)]
 
 mapMe :: [String] -> [Char] -> [(Char ,[String])]
@@ -54,6 +58,21 @@ startsWithH list = [x | x <- list , toLower (head x) == 'h']
 
 getFirstLetter :: [String] -> [Char]
 getFirstLetter list = nub (map head list)
+
+takeWhileAdjanced :: (a -> a -> Bool) -> [a] -> [a]
+takeWhileAdjanced _ [] = []
+takeWhileAdjanced _ [x] = [x]
+takeWhileAdjanced function (x:y:rest) 
+    | function x y = x : takeWhileAdjanced function (y:rest)
+    | otherwise = [x]
+
+takeWhileTriple :: (a -> a -> a -> Bool) -> [a] -> [a]
+takeWhileTriple _ [] = []
+takeWhileTriple _ [x] = [x]
+takeWhileTriple _ [x,y] = [x,y]
+takeWhileTriple function (x:y:z:rest)
+    | function x y z = x : takeWhileTriple function (y:z:rest)
+    | otherwise = [x]
 
 
 

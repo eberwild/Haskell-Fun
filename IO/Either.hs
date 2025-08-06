@@ -1,0 +1,32 @@
+import Text.Read (readMaybe)
+-- Either wird benutzt wenn man in gewissen Situationen mehr als einen Datentyp zurückgeben möchte 
+-- Left steh hierbei für einen Fehler -> Abbruch wie Nothing bei Maybe
+-- Right steht hierei für den korrekten Output -> Programm läuft weiter
+-- Wichtig -> Left und Right ersetzen hier abstrakt betrachtet das keyword return
+
+main :: IO()
+main = do
+    print (safeDivide 2 0)
+
+-- Funktion um das Teilen durch 0 zu verhindern und eine Fehlermeldung auszugeben
+safeDivide :: Int -> Int -> Either String Int
+safeDivide _ 0 = Left "Fehlerhafte Eingabe , es kann nicht durch 0 geteilt werden."
+safeDivide a b = Right (a `div` b)
+
+-- Funktion um einen String in eine positiven In Wert umzuwandeln und eine Fehlermeldung auszugeben
+parsePositivInt :: String -> Either String Int
+parsePositivInt text =
+    case readMaybe text :: Maybe Int of 
+        Nothing -> Left "Keine gültige Eingabe."
+        Just n -> do
+            if n > 0 
+               then Right n
+               else Left "Zahl muss positiv sein."
+
+            
+    
+     
+
+
+
+
