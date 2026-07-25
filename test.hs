@@ -14,7 +14,7 @@ guardstest :: Int -> Int
 guardstest x 
         | x > 0 = 1
         | x < 0 = -1
-        | otherwise 0
+        | otherwise = 0
 
 -- even x stellt hier die Bedingung da um in die neue Liste zu kommen
 onlyeven :: [Int] -> [Int]
@@ -31,8 +31,8 @@ doubleEven n = [ if even x
                  else x | x <- [1 .. n]]
 
 -- kann mit zip list1 list2 leichter erreicht werden
-toLists :: [String] -> [Int] -> [(String , Int)]
+toLists :: [a] -> [b] -> [(a,b)]
 toLists [][] = []
-toLists rest1 [] = []
-toLists [] rest2 = []
+toLists list1 [] = []
+toLists [] list2 = []
 toLists (head1 : rest1) (head2 : rest2) = (head1 , head2) : toLists rest1 rest2

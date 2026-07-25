@@ -1,4 +1,7 @@
+
 data Tree a = Leaf a | Node (Tree a) (Tree a) deriving Show
+
+data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show)
 
 main :: IO()
 main = do 
@@ -17,4 +20,14 @@ getTreeHight (Node l r) = 1 + max ( getTreeHight l) (getTreeHight r)
 
 mirrorTree :: Tree a -> Tree a
 mirrorTree (Leaf x) = Leaf x
-mirrorTree (Node l r) = Node (mirrorTree l) (mirrorTree r)
+mirrorTree (Node l r) = Node (mirrorTree r) (mirrorTree l)
+
+sumTree :: Num a => Tree a -> a
+sumTree Empty = 0
+sumTree (Node value left right) =
+    value + sumTree left + sumTree right
+
+sumTree :: Num a => Tree a -> a
+sumTree (Leaf x) = x
+sumTree (Node left right) =
+    sumTree left + sumTree right

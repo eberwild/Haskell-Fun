@@ -64,7 +64,7 @@ takeWhileAdjanced _ [] = []
 takeWhileAdjanced _ [x] = [x]
 takeWhileAdjanced function (x:y:rest) 
     | function x y = x : takeWhileAdjanced function (y:rest)
-    | otherwise = [x]
+    | otherwise = [x]   -- kurz für x : []
 
 takeWhileTriple :: (a -> a -> a -> Bool) -> [a] -> [a]
 takeWhileTriple _ [] = []

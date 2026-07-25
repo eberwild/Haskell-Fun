@@ -10,6 +10,7 @@ main = do
     let add2 = add 2
     print (add2 5)
     print (add2 8)
+    print( add 2 2)
 
     -- hier -> ein fester Wert wird mit jedem Element der Liste einzeln durch map verrechnet
     let numbers = [1,2,3,4]
@@ -27,6 +28,9 @@ main = do
 -- wir geben einen Input an und erhalten eine Funktion zurück die dann einen weiteren Input erwartet
 add :: Int -> (Int -> Int)
 add x y = x + y
+
+uncurryadd :: (Int , Int) -> Int
+uncurryadd = uncurry add
 
 -- curry Funktionsdarstellung
 multiply :: Int -> Int -> Int 

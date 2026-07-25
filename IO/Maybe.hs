@@ -8,12 +8,7 @@ main = do
     zahl2 <- normalSquare
     print zahl2
 
-checkPassword :: String -> Either String Bool
-checkPassword word 
-    | length word > 5 = Right True
-    | otherwise = Left "Fehlerhafte Eingabe."
-
--- nimmt vom Nutzer ein Passwort entgegen und testet ob e slang genug ist -> wenn nicht Warnung und erneute Eingabe erforderlich
+-- nimmt vom Nutzer ein Passwort entgegen und testet ob es lang genug ist -> wenn nicht Warnung und erneute Eingabe erforderlich
 validPasswort :: IO String
 validPasswort = do 
     putStrLn "Bitte Passwort eingeben."

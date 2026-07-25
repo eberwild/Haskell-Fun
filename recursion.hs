@@ -26,7 +26,7 @@ evenSum (first:rest) = if even first
 
 countChar :: Char -> String -> Int
 countChar c  []  = 0
-countChar c  (first : rest) = if toLower(first) == toLower(c) 
+countChar c  (first : rest) = if toLower first == toLower c
                             then 1 + countChar c rest 
                             else countChar c rest
 
@@ -37,20 +37,23 @@ findMax (first : rest) = max first (findMax rest)
 
 squaredSum :: [Int] -> Int
 squaredSum [] = 0
+squaredSum [x] = x^2
 squaredSum (first : rest) = (first^2) + squaredSum rest
 
 lengthOfList :: [a] -> Int
 lengthOfList [] = 0
+lengthOfList [x] = 1
 lengthOfList (first : rest) = 1 + lengthOfList rest
 
 reverseList :: [a] -> [a]
 reverseList [] = []
+reverseList [x] = [x]
 reverseList (first : rest) = reverseList rest ++ [first]
 
 squareOdd :: [Int] -> [Int]
 squareOdd [] = []
 squareOdd (first : rest) = if odd first 
-                            then [first^2] ++ squareOdd rest 
+                            then (first^2) : squareOdd rest 
                             else squareOdd rest
 
 

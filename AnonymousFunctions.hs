@@ -14,7 +14,7 @@ main = do
 
     -- Mit einer anonymen Funktion verdoppeln
     let verdoppelt = applyToList (\x -> x * 2) zahlen
-    let easydoppelt = map (* 2) zahlen
+    let easydoppelt = map (\x -> x * 2) zahlen
     putStrLn "Verdoppelte Zahlen:"
     print easydoppelt
     print verdoppelt
