@@ -4,7 +4,7 @@ myLength (_:xs) = 1 + myLength xs
 
 mySum :: [Int] -> Int
 mySum [] = 0
-mySum (x:xs) = x + mySum xs
+mySum (x:xs) = x + mySum xs  
 
 myLast :: [a] -> a
 myLast [x] = x

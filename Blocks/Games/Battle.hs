@@ -3,7 +3,7 @@ newtype ATK = ATK Int
     deriving Show
 newtype HP = HP Int
     deriving Show
-data Player = Player Name ATK HP
+data Player = Player Name ATK HP 
     deriving Show
 
 player1 = Player "Ruffy" (ATK 10) (HP 65)

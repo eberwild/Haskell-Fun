@@ -24,7 +24,7 @@ getInput n acc = do
             getInput n acc
         -- eingabe = 0 -> bis hierher aufsummierter acc wird ausgegeben
         -- dadurch wird das programm ohne fehler beendet aber mit einer ausgabe
-        Just 0 -> return (Right acc)
+        Just 0 -> return ()
         Just x -> getInput (n-1) (acc + x)
 
 -- gibt nicht mehr Just n aus , sondern nur noch n oder einen fehlerString im fall von nothing

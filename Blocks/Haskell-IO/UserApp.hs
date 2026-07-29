@@ -40,7 +40,7 @@ userApp users = do
     putStrLn "3 - Benutzer finden"
     putStrLn "4 - Benutzer entfernen"
     putStrLn "5 - Beenden"
-    choice <- getLine
+    choice <- getLine -- String
     case choice of
         "1" -> do
             putStrLn "Bitte geben Sie den Namen des neuen Nutzers ein :"
@@ -78,3 +78,5 @@ userApp users = do
         _ -> do
             putStrLn "Ungültige Eingabe."
             userApp users
+
+
