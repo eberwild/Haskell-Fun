@@ -56,7 +56,7 @@
 
 -- foldr (Funktion) (Init Value) (List) -> faltet die Liste von rechts nach links
 --         foldr (\x acc -> x : acc) [] [1,2,3]  ->  Output -> [1,2,3]
---         foldl (\x acc -> x : acc) [] [1,2,3]  ->  Output -> [3,2,1]
+--         foldl (\acc x -> ) [] [1,2,3]  ->  Output -> [3,2,1]  
 
 -- elem x list -> gibt True zurück, wenn x in der Liste ist
 --         elem 3 [1,2,3,4] -> True
