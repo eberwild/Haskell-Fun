@@ -291,4 +291,113 @@ filterlist check (Cons value rest)
 example :: List Int
 example = Cons 1 (Cons 2 (Cons 3 Nil))
 
+-------------------------------------------------------------------------------------------------------------
 
+main :: IO ()
+main = do
+    putStrLn "Wert für x :"
+    x <- readLn
+    convertHelp x 0
+
+getNextX :: IO (Int)
+getNextX = do
+    putStrLn "Nächstes x : "
+    newX <- readLn
+    return (newX)
+
+convertHelp :: Int -> Int -> IO ()
+convertHelp x y
+    | x > 0 = if even x
+                then do 
+                    putStrLn ("New x : " ++ (show updatedX))
+                    convertHelp updatedX y
+                else do
+                        newX <- getNextX
+                        putStrLn ("New x : " ++ (show newX))
+                        convertHelp newX (y+1)
+    | otherwise = putStrLn("Y : " ++ (show y))
+    where 
+        updatedX = x `div` 3
+
+-------------------------------------------------------------------------------------------------------------
+
+while :: a -> (a -> Bool) -> (a -> a) -> a
+while start p body = loop start
+  where
+    loop x
+      | p x       = loop (body x)
+      | otherwise = x
+
+reduceToOne :: Int -> Int
+reduceToOne value = while 
+                        value 
+                        (\x -> x > 1)
+                        (\x -> if even x 
+                                then x `div` 2
+                                else x - 1)
+
+ioWhile :: a -> (a -> Bool) -> (a -> IO a) -> IO a
+ioWhile start p body = loop start
+  where
+    loop x =
+      if p x
+        then do
+          x' <- body x
+          loop x'
+        else
+          return x
+
+sumNumbers :: IO ()
+sumNumbers = do
+                putStr "Wie viele Zahlen sollen eingelesen werden ?"
+                number <- readLn
+                (_ , summe , valid) <- ioWhile (number , 0 , True)
+                                (\(x,_,_) -> x > 0)
+                                (\(x,mysum,valid) -> do
+                                    putStrLn "Welche Zahl soll aufsummiert werden?"
+                                    input <- readLn
+                                    case input of
+                                        0 -> return (0,mysum,(not valid))
+                                        _ -> return ((x-1),(mysum + input) , valid)
+                                )
+                case valid of
+                    True -> putStrLn ("Summe : " ++ show summe)
+                    False -> return ()
+
+processUntilCommand :: IO ()
+processUntilCommand = do
+    putStrLn "Wie vielen Zahlen möchten sie eingeben?"
+    number <- readLn
+    (n , summe , negative , maximum , valid) <- ioWhile (number , 0 , 0 , Nothing , True) 
+                        (\(n,_,_,_,_) -> n > 0)
+                        (\(n , currentSum , negativeCount , maximum , valid) -> do
+                        putStrLn "Nächte Zahl : "
+                        input <- readLn 
+                        case input of
+                            0 -> return (0 , currentSum , negativeCount , maximum , False)
+                            _ ->  do 
+                                case (input > 0) of
+                                    True -> return ((n-1) , (currentSum + input) , negativeCount , 
+                                                                                        case maximum of 
+                                                                                            Nothing -> Just input
+                                                                                            Just x -> Just (max x input)
+                                                                                        ,
+                                                                                        valid
+                                                                                        )
+                                    False -> return ((n-1) , currentSum ,(negativeCount+1),
+                                                                                        case maximum of 
+                                                                                            Nothing -> Just input
+                                                                                            Just x -> Just (max x input)
+                                                                                        ,
+                                                                                        valid
+                                                                                        )
+                    ) 
+    case valid of 
+        False -> putStrLn "Eingabe beendet."
+        True -> do
+            putStrLn ("Positive Summe : " ++ (show summe))
+            putStrLn ("Anzahl negativer Zahlen : " ++ (show negative))
+            case maximum of
+                Nothing -> putStrLn "Kein Maximum vorhanden."
+                Just x -> putStrLn ("Maximum Eingabe : " ++ (show x))
+            
